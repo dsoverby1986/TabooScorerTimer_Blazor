@@ -87,12 +87,17 @@
         {
             Timer.Stop();
             Timer.Dispose();
+
         }
     }
 
     private void CalculateCurrentTime(Object source, ElapsedEventArgs e)
     {
-        InvokeAsync(() => { Time--; StateHasChanged(); });
+        InvokeAsync(() => 
+        { 
+            Time--; 
+            StateHasChanged(); 
+        });
 
         if (Time == 0)
         {
