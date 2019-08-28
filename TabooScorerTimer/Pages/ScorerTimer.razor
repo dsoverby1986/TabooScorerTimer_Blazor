@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject IJSRuntime JsRuntime;
 @using System.Timers
 
 <div class="container">
@@ -91,10 +92,10 @@
 
     private void CalculateCurrentTime(Object source, ElapsedEventArgs e)
     {
-        InvokeAsync(() => 
-        { 
-            Time--; 
-            StateHasChanged(); 
+        InvokeAsync(() =>
+        {
+            Time--;
+            StateHasChanged();
         });
 
         if (Time == 0)
@@ -103,12 +104,13 @@
         }
     }
 
-    private void StopTimer()
+    private async void StopTimer()
     {
         Timer.Stop();
         Timer.Dispose();
         TimerVerb = "Start";
         Time = 60;
+        await JsRuntime.InvokeAsync<object>("soundAlert");
     }
 
     private void SetTimerVerb() =>
